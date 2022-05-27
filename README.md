@@ -4,7 +4,7 @@ Practicing React and MUI
 
 # How to set up this project
 
-* Clone this repository to your machine
+* Clone this repository to your desktop
 
 * Open project in command prompt or preferred terminal
 
