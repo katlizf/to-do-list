@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import '../App.css'
+import {Box, Button, Typography} from '@mui/material'
 
 function Item({item, index, setList, list}) {
 
@@ -11,11 +12,11 @@ function Item({item, index, setList, list}) {
     }
 
     return (
-        <div className='item'>
-            <h3 onClick={() => setIsChecked(!isChecked)} className={isChecked ? 'completed' : null}>{item.task}</h3>
-            <h5>{item.category}</h5>
-            <h3 onClick={() => handleDelete(index)}>X</h3>
-        </div>
+        <Box className='item' sx={{display:'flex', flexDirection:'row', gap:2, justifyContent:'center', my:2}}>
+            <Typography variant='h4' Click={() => setIsChecked(!isChecked)} className={isChecked ? 'completed' : null}>{item.task}</Typography> 
+            <Typography varient='h5'>{item.category}</Typography>
+            <Button variant='contained' onClick={() => handleDelete(index)}>X</Button>
+        </Box>
   )
 }
 

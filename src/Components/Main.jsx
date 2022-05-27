@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ListDisplay from './ListDisplay'
+import {Box, Button, FormControl, MenuItem, Select, TextField, Typography} from '@mui/material'
 
 function Main() {
 
@@ -18,19 +19,20 @@ function Main() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type='text' placeholder='task' onChange={handleChange} value={task}></input>
-                <select onChange={(e) => setCategory(e.target.value)}>
-                    <option defaultValue disabled selected>category</option>
-                    <option value='chores'>chores</option>
-                    <option value='errands'>errands</option>
-                    <option value='work'>work</option>
-                </select>
-                <button type='submit'>Add</button>
-            </form>
+        <Box>
+            <Typography variant='h3' sx={{textAlign:'center', my:2}}>My To-Do List</Typography>
+            <FormControl onSubmit={handleSubmit} sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
+                <TextField type='text' placeholder='task' onChange={handleChange} value={task}></TextField>
+                <Select onChange={(e) => setCategory(e.target.value)} defaultValue='category'>
+                    <MenuItem value='category'>category</MenuItem>
+                    <MenuItem value='chores'>chores</MenuItem>
+                    <MenuItem value='errands'>errands</MenuItem>
+                    <MenuItem value='work'>work</MenuItem>
+                </Select>
+                <Button type='submit' variant='contained'>Add</Button>
+            </FormControl>
             <ListDisplay list={list} setList={setList}/>
-        </div>
+        </Box>
     )
 }
 

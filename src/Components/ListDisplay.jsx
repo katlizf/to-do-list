@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import Item from './Item'
+import {Box, MenuItem, Select} from '@mui/material'
 
 function ListDisplay(props) {
 
     const {list, setList} = props /*have access to list as props*/
     const [selected, setSelected] = useState('')
-console.log(list)
+
     const listMapped = list.filter((item) => {
         if(selected) return item.category === selected
         return item}).map((item, index) => {
@@ -16,15 +17,15 @@ console.log(list)
 
 
     return (
-        <div>
-            <select onChange={(e) => setSelected(e.target.value)}>
-                <option defaultValue selected></option>
-                <option value='chores'>chores</option>
-                <option value='errands'>errands</option>
-                <option value='work'>work</option>
-            </select>
+        <Box sx={{display:'flex', justifyContent:'center'}}>
+            <Select onChange={(e) => setSelected(e.target.value)} defaultValue='all'>
+                <MenuItem value='all'>all</MenuItem>
+                <MenuItem value='chores'>chores</MenuItem>
+                <MenuItem value='errands'>errands</MenuItem>
+                <MenuItem value='work'>work</MenuItem>
+            </Select>
             {listMapped}
-        </div>
+        </Box>
     )
 }
 
