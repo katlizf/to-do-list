@@ -13,15 +13,15 @@ function Main() {
     }
     const handleSubmit = e => {
         e.preventDefault()
-
+console.log('Works')
         setList([...list, {task: task, category: category}])
         setTask('')
     }
-
+console.log(list)
     return (
         <Box>
             <Typography variant='h3' sx={{textAlign:'center', my:2}}>My To-Do List</Typography>
-            <FormControl onSubmit={handleSubmit} sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
+            <FormControl sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
                 <TextField type='text' placeholder='task' onChange={handleChange} value={task}></TextField>
                 <Select onChange={(e) => setCategory(e.target.value)} defaultValue='category'>
                     <MenuItem value='category'>category</MenuItem>
@@ -29,7 +29,7 @@ function Main() {
                     <MenuItem value='errands'>errands</MenuItem>
                     <MenuItem value='work'>work</MenuItem>
                 </Select>
-                <Button type='submit' variant='contained'>Add</Button>
+                <Button type='submit' variant='contained' onClick={handleSubmit}>Add</Button>
             </FormControl>
             <ListDisplay list={list} setList={setList}/>
         </Box>
