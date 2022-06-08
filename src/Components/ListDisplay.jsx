@@ -18,7 +18,10 @@ function ListDisplay(props) {
 
     return (
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            <Select onChange={(e) => setSelected(e.target.value)} defaultValue='all' sx={{width:'100px'}}>
+            <Select 
+                onChange={(e) => setSelected(e.target.value)}
+                defaultValue='all' 
+                sx={{width:'100px'}}>
                 <MenuItem value='all'>all</MenuItem>
                 <MenuItem value='chores'>chores</MenuItem>
                 <MenuItem value='errands'>errands</MenuItem>

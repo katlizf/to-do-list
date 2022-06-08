@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import '../App.css'
 import {Box, Button, Typography} from '@mui/material'
 
-function Item({item, index, setList, list}) {
+function Item({item, index, setList, list, task}) {
 
     const [isChecked, setIsChecked] = useState(false)
 
@@ -12,10 +12,21 @@ function Item({item, index, setList, list}) {
     }
 
     return (
-        <Box className='item' sx={{display:'flex', flexDirection:'row', gap:2, justifyContent:'center', my:2}}>
-            <Typography variant='h4' Click={() => setIsChecked(!isChecked)} className={isChecked ? 'completed' : null}>{item.task}</Typography> 
-            <Typography varient='h5'>{item.category}</Typography>
-            <Button variant='contained' onClick={() => handleDelete(index)}>X</Button>
+        <Box 
+            className='item' 
+            sx={{display:'flex', flexDirection:'row', gap:2, justifyContent:'center', my:2}}>
+            <Typography 
+                variant='h4' 
+                Click={() => setIsChecked(!isChecked)} 
+                className={isChecked ? 'completed' : null}>{task.task_name}
+            </Typography> 
+            <Typography 
+                varient='h5'>{item.category}
+            </Typography>
+            <Button 
+                variant='contained' 
+                onClick={() => handleDelete(index)}>X
+            </Button>
         </Box>
   )
 }

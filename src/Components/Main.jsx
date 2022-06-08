@@ -1,35 +1,69 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ListDisplay from './ListDisplay'
-import {Box, Button, FormControl, MenuItem, Select, TextField, Typography} from '@mui/material'
+import {Box, Button, FormControl, Select, TextField, Typography} from '@mui/material'
+import {useFormik} from 'formik'
+import axios from 'axios'
 
 function Main() {
 
-    const [task, setTask] = useState('')
-    const [category, setCategory] = useState('')
+    const [allCategories, setAllCategories] = useState([])
     const [list, setList] = useState([])
 
-    const handleChange = e => {
-        setTask(e.target.value)
-    }
-    const handleSubmit = e => {
-        e.preventDefault()
-console.log('Works')
-        setList([...list, {task: task, category: category}])
-        setTask('')
-    }
-console.log(list)
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:4000/api/getCategories')
+            .then(res => setAllCategories(res.data))
+        axios
+            .get('http://localhost:4000/api/getAllTasks')
+            .then(res => setList(res.data))
+    })
+
+    const catOptions = allCategories.map((cat, index) => {
+        return <option value={cat.category_id}>{cat.category_name}</option>
+    })
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            description: '',
+            category: '' /*changed to '' instead of null*/
+        },
+        onSubmit: (values) => {
+            axios
+                .post('http://localhost:4000/api/addTask', values)
+                .then(res => console.log(res.data))
+        }
+    })
+
     return (
         <Box>
-            <Typography variant='h3' sx={{textAlign:'center', my:2}}>My To-Do List</Typography>
-            <FormControl sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
-                <TextField type='text' placeholder='task' onChange={handleChange} value={task}></TextField>
-                <Select onChange={(e) => setCategory(e.target.value)} defaultValue='category'>
-                    <MenuItem value='category'>category</MenuItem>
-                    <MenuItem value='chores'>chores</MenuItem>
-                    <MenuItem value='errands'>errands</MenuItem>
-                    <MenuItem value='work'>work</MenuItem>
+            <Typography
+                variant='h3' 
+                sx={{textAlign:'center', my:2}}>My To-Do List
+            </Typography>
+            <FormControl
+                sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
+                <TextField 
+                    name='name'
+                    placeholder='task' 
+                    value={formik.values.name}>
+                </TextField>
+                <TextField 
+                    name='description'
+                    placeholder='description' 
+                    value={formik.values.description}>
+                </TextField>
+                <Select 
+                    name='category'
+                    value={formik.values.category} 
+                    onChange={formik.handleChange} defaultValue='category'>{catOptions}
                 </Select>
-                <Button type='submit' variant='contained' onClick={handleSubmit}>Add</Button>
+                <Button 
+                    type='submit' 
+                    variant='contained' 
+                    onSubmit={formik.handleSubmit}>Add
+                </Button>
             </FormControl>
             <ListDisplay list={list} setList={setList}/>
         </Box>
