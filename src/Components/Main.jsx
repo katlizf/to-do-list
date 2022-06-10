@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import ListDisplay from './ListDisplay'
-import {Box, Button, FormControl, Select, TextField, Typography} from '@mui/material'
+import {Box, Button, FormControl, MenuItem, Select, TextField, Typography} from '@mui/material'
 import {useFormik} from 'formik'
 import axios from 'axios'
 
@@ -20,7 +20,7 @@ function Main() {
     })
 
     const catOptions = allCategories.map((cat, index) => {
-        return <option value={cat.category_id}>{cat.category_name}</option>
+        return <MenuItem value={cat.category_id}>{cat.category_name}</MenuItem>
     })
 
     const formik = useFormik({
@@ -37,35 +37,41 @@ function Main() {
     })
 
     return (
-        <Box>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, my: 2}}>
             <Typography
-                variant='h3' 
-                sx={{textAlign:'center', my:2}}>My To-Do List
+                variant='h3'
+                sx={{textAlign: 'center', my: 2}}>My To-Do List
             </Typography>
-            <FormControl
-                sx={{display:'flex', flexDirection:'row', justifyContent:'center', gap:1, my:2}}>
-                <TextField 
+            <form
+                onSubmit={formik.handleSubmit}
+                sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 2, my: 2}}>
+                <TextField
                     name='name'
-                    placeholder='task' 
-                    value={formik.values.name}>
+                    placeholder='Task'
+                    value={formik.values.name}
+                    onChange={formik.handleChange}>
                 </TextField>
-                <TextField 
+                <TextField
                     name='description'
-                    placeholder='description' 
-                    value={formik.values.description}>
+                    placeholder='Description'
+                    value={formik.values.description}
+                    onChange={formik.handleChange}>
                 </TextField>
-                <Select 
-                    name='category'
-                    value={formik.values.category} 
-                    onChange={formik.handleChange} defaultValue='category'>{catOptions}
-                </Select>
-                <Button 
-                    type='submit' 
-                    variant='contained' 
-                    onSubmit={formik.handleSubmit}>Add
+                <FormControl>
+                    <Select
+                        name='category'
+                        value={formik.values.category}
+                        onChange={formik.handleChange}
+                        sx={{width: 170}}>
+                        {catOptions}
+                    </Select>
+                </FormControl>
+                <Button
+                    type='submit'
+                    variant='contained'>Add
                 </Button>
-            </FormControl>
-            <ListDisplay list={list} setList={setList}/>
+            </form>
+            <ListDisplay list={list} setList={setList} />
         </Box>
     )
 }

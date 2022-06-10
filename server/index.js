@@ -11,7 +11,7 @@ app.use(cors())
 
 app.get('/api/getAllTasks', async (req, res) => {
     let allTasks = await sequelize.query(`
-        SELECT * FROM tasks;
+        SELECT * FROM tasks t;
         JOIN categories c
         ON t.category = c.category_id`)
         res.status(200).send(allTasks[0])

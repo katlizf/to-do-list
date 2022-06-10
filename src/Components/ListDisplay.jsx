@@ -22,10 +22,10 @@ function ListDisplay(props) {
                 onChange={(e) => setSelected(e.target.value)}
                 defaultValue='all' 
                 sx={{width:'100px'}}>
-                <MenuItem value='all'>all</MenuItem>
-                <MenuItem value='chores'>chores</MenuItem>
-                <MenuItem value='errands'>errands</MenuItem>
-                <MenuItem value='work'>work</MenuItem>
+                <MenuItem value='all'>All</MenuItem>
+                <MenuItem value='chores'>Chores</MenuItem>
+                <MenuItem value='errands'>Errands</MenuItem>
+                <MenuItem value='work'>Work</MenuItem>
             </Select>
             {listMapped}
         </Box>
