@@ -20,6 +20,7 @@ function Item({id, task, setList, list}) {
                 onClick={() => setIsChecked(!isChecked)} 
                 className={isChecked ? 'ischecked' : null}>{task.task_name}
             </Typography> 
+        {/* Redo strike-through ability */}
             <Typography 
                 varient='h4'>{task.task_category}
             </Typography>
