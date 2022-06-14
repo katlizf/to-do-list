@@ -20,7 +20,7 @@ function Main() {
     }, [])
 
     const catOptions = allCategories.map((cat, index) => {
-        return <MenuItem value={cat.category_id}>{cat.category_name}</MenuItem>
+        return <MenuItem value={cat.id}>{cat.category_name}</MenuItem>
     })
 
     const formik = useFormik({
