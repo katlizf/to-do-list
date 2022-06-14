@@ -17,7 +17,7 @@ function Main() {
         axios
             .get('http://localhost:4000/api/getAllTasks')
             .then(res => setList(res.data))
-    })
+    }, [])
 
     const catOptions = allCategories.map((cat, index) => {
         return <MenuItem value={cat.category_id}>{cat.category_name}</MenuItem>
@@ -27,7 +27,7 @@ function Main() {
         initialValues: {
             name: '',
             description: '',
-            category: '' /*changed to '' instead of null*/
+            category: null
         },
         onSubmit: (values) => {
             axios
@@ -63,7 +63,8 @@ function Main() {
                         value={formik.values.category}
                         onChange={formik.handleChange}
                         sx={{width: 170}}>
-                        {catOptions}
+                            <MenuItem defaultValue disabled selected>Category</MenuItem>
+                            {catOptions}
                     </Select>
                 </FormControl>
                 <Button

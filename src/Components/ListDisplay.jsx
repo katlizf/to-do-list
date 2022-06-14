@@ -11,7 +11,7 @@ function ListDisplay(props) {
         if(selected) return item.category === selected
         return item}).map((item, index) => {
             return (
-                <Item key={index} item={item} index={index} setList={setList} list={list} />
+                <Item key={index} id={item} task={item} setList={setList} list={list} />
             )
     })
 
